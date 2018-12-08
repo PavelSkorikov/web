@@ -1,3 +1,3 @@
-data = [bytes(i + '\n', 'ascii') for i in input().split('&')]
-
-print(data)
+data = input().split('&')
+for i in data:
+    print(i)
