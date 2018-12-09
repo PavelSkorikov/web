@@ -5,4 +5,4 @@ def app(environ, start_response):
             ("Content-Length", str(len(data)))
         ])
         for i in data:
-            return i
+            yield i
