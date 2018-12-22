@@ -5,7 +5,7 @@ from qa.models import Question, Answer
 from django.core.paginator import Paginator
 
 @require_GET
-def paginate(request, qs)
+def paginate(request, qs):
     try:
         limit = int(request.GET.get('limit', 10))
     except ValueError:
