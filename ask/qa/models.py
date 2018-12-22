@@ -8,11 +8,6 @@ class QuestionManager(models.Manager):
     def popular(self):
         return self.order_by('-rating')
 
-class Answer(models.Model):
-    text = models.TextField()
-    added_at = models.DateTimeField(blank=True, auto_now_add=True)
-    author = models.ForeignKey(User, null=False, on_delete=models.PROTECT)
-
 class Question(models.Model):
     objects = QuestionManager()
     title = models.CharField(max_length=255)
@@ -21,11 +16,16 @@ class Question(models.Model):
     rating = models.IntegerField(default = 0)
     author = models.ForeignKey(User, null=False, on_delete=models.PROTECT)
     likes = models.ManyToManyField(User, related_name='likes_set')
-    answers = models.ForeignKey(Answer, null=True, on_delete=models.SET_NULL)
     def get_url(self):
         return reverse('question', kwargs={'slug': self.slug})
     def __unicode__(self):
         return self.title
+
+class Answer(models.Model):
+    text = models.TextField()
+    added_at = models.DateTimeField(blank=True, auto_now_add=True)
+    author = models.ForeignKey(User, null=False, on_delete=models.PROTECT)
+    question = models.ForeignKey(Question, null=False, on_delete=models.PROTECT)
 
 
 

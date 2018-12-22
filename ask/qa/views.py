@@ -43,10 +43,7 @@ def popular_question_list(request):
 
 def question(request, slug):
     question = get_object_or_404(Question, slug=slug)
-    try:
-        answers = question.answers.all()[:]
-    except Answer.DoesNotExist:
-        answers = None
+    answers = question.answer_set.all()
     return render(request, 'qa/templates/question.html', {
         'question': question,
         'answers':   answers,
