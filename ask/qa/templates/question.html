@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>question</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
 
     <h1>{{question.title}}</h1><br>
     <p>{{question.text}}</p><br><br>
     {% for a in answers %}
-        <p>{{a.author}}:{{a.added_at}}</p><br>
-        {{a.text}}<br><br>
+        <p>{{a.author}}</p><br>
+    <p>{{a.text}}</p><br><br>
     {% endfor %}
 </body>
 </html>
