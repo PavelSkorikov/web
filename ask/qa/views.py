@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 
 @require_GET
 def paginate(request, qs):
+    global paginator
+    global page
     try:
         limit = int(request.GET.get('limit', 10))
     except ValueError:
@@ -17,17 +19,14 @@ def paginate(request, qs):
     except ValueError:
         raise Http404
     paginator = Paginator(qs, limit)
-    try:
-        page = paginator.page(page)
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+    page = paginator.page(page)
     return page
 
 def new_question_list(request):
     new_questions = Question.objects.new()
     paginate(request, new_questions)
     paginator.baseurl = '/?page='
-    return render(request, 'qa/templates/new_questions.html', {
+    return render(request, 'new_questions.html', {
         new_questions:   page.object_list,
         paginator:  paginator, page: page,
     })
@@ -36,7 +35,7 @@ def popular_question_list(request):
     popular_questions = Question.objects.popular()
     paginate(request, popular_questions)
     paginator.baseurl = '/popular/?page='
-    return render(request, 'qa/templates/popular_questions.html', {
+    return render(request, 'popular_questions.html', {
         popular_questions:  page.object_list,
         paginator:  paginator, page: page,
     })
@@ -44,7 +43,7 @@ def popular_question_list(request):
 def question(request, slug):
     question = get_object_or_404(Question, slug=slug)
     answers = question.answer_set.all()
-    return render(request, 'qa/templates/question.html', {
+    return render(request, 'question.html', {
         'question': question,
         'answers':   answers,
     })
