@@ -15,7 +15,7 @@ def paginate(request, qs):
     if limit > 100:
         limit = 10
     try:
-        page = int(request.GET.get('page', 2))
+        page = int(request.GET.get('page', 1))
     except ValueError:
         raise Http404
     paginator = Paginator(qs, limit)
@@ -41,7 +41,7 @@ def popular_question_list(request):
     })
 
 def question(request, pk):
-    question = get_object_or_404(Question, pk=pk)
+    question = get_object_or_404(Question, id=pk)
     answers = question.answer_set.all()
     return render(request, 'question.html', {
         'question': question,

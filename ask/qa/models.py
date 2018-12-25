@@ -17,7 +17,7 @@ class Question(models.Model):
     author = models.ForeignKey(User, null=False, on_delete=models.PROTECT)
     likes = models.ManyToManyField(User, related_name='likes_set')
     def get_url(self):
-        return reverse('question', kwargs={'pk': self.pk})
+        return reverse('question', kwargs={'pk': self.id})
     def __unicode__(self):
         return self.title
 
