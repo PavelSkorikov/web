@@ -47,11 +47,5 @@ def question(request, pk):
         'question': question,
         'answers':   answers,
     })
-def hello(request):
-    status = '200 OK'
-    headers = [('Content-type', 'text/plain')]
-    body = 'hello world'
-    start_response(status, headers)
-    return [body]
 
 # Create your views here.
