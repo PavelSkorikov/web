@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>popular_question</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
 {% for q in popular_questions %}
-    <h1>{{ q.title }}</h1>
-    <a href="{{ q.get_url }}">open</a> <br>
+    <h1>{{ q.title }}</h1><br>
+    <a href="{{ q.get_url }}">open</a> <br><br>
 {% endfor %}
-<nav><ul class="pagination">
+<div><ul>
     {% for p in paginator.page_range %}
         {% if p == page.number %}
-        <li class="active">
+        <li style="border:2px; border-color:green;">
         {% else %}
         <li>
         {% endif %}
@@ -21,6 +20,6 @@
         </li>
     {% endfor %}
 </ul>
-</nav>
+</div>
 </body>
 </html>
