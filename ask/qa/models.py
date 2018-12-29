@@ -14,7 +14,7 @@ class Question(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(blank=True, auto_now_add=True)
     rating = models.IntegerField(default = 0)
-    author = models.ForeignKey(User, null=False, on_delete=models.PROTECT)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     likes = models.ManyToManyField(User, related_name='likes_set')
     def get_url(self):
         return reverse('question', kwargs={'pk': self.id})
@@ -24,7 +24,7 @@ class Question(models.Model):
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(blank=True, auto_now_add=True)
-    author = models.ForeignKey(User, null=False, on_delete=models.PROTECT)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     question = models.ForeignKey(Question, null=False, on_delete=models.PROTECT)
     def __unicode__(self):
         return self.text
