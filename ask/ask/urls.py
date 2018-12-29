@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
+from qa.views import new_question_list
 
 urlpatterns = [
+    url(r'^$', new_question_list, name='new_question_list'),
     url(r'^', include('qa.urls')),
 ]

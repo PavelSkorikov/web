@@ -55,7 +55,7 @@ ROOT_URLCONF = 'ask.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/qa/templates/'],
+        'DIRS': ['home/box/web/ask/qa/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,11 +80,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'pavel',
         'PASSWORD': '123456',
-        'SERVER': 'localhost',
-        'PORT': 3306,
-        'OPTIONS': {
-              'init_command'  : "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1", 'charset': 'utf8mb4'
-                }
     }
 
 }
@@ -126,4 +121,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = BASE_DIR + '/qa/static/'
+STATIC_URL = 'home/box/web/ask//qa/static/'
