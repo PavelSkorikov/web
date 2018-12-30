@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views.decorators.http import require_GET
 from qa.models import Question, Answer
 from django.core.paginator import Paginator
+from typing import Any
+
 
 @require_GET
 def paginate(request, qs):
@@ -15,11 +17,14 @@ def paginate(request, qs):
     if limit > 100:
         limit = 10
     try:
-        page = int(request.GET.get('page', 2))
+        pg = int(request.GET.get('page', 1))
     except ValueError:
         raise Http404
     paginator = Paginator(qs, limit)
-    page = paginator.page(page)
+    #try:
+    page = paginator.page(pg)
+    #except EmptyPage:
+     #   page = paginator.page(paginator.num_pages)
     return page
 
 def new_question_list(request):
@@ -27,8 +32,9 @@ def new_question_list(request):
     paginate(request, new_questions)
     paginator.baseurl = '/?page='
     return render(request, 'new_questions.html', {
-        new_questions:   page.object_list,
-        paginator:  paginator, page: page,
+        'new_questions':   page.object_list,
+        'paginator':  paginator,
+        'page': page,
     })
 
 def popular_question_list(request):
@@ -36,8 +42,9 @@ def popular_question_list(request):
     paginate(request, popular_questions)
     paginator.baseurl = '/popular/?page='
     return render(request, 'popular_questions.html', {
-        popular_questions:  page.object_list,
-        paginator:  paginator, page: page,
+        'popular_questions':  page.object_list,
+        'paginator':  paginator,
+        'page': page,
     })
 
 def question(request, pk):
