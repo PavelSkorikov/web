@@ -78,7 +78,7 @@ def answer_add(request, pk):
     else:
         question = get_object_or_404(Question, id=pk)
         answers = question.answer_set.all()
-        form = AnswerForm()
+        form = AnswerForm(initial={'question': question.id})
     return render(request, 'question.html', {
         'pk': pk,
         'question': question,

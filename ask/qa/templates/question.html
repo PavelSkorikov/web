@@ -19,15 +19,12 @@
     <form class="form-horisontal" method="post" action="/question/{{ pk }}/">
         {% csrf_token %}
         <fieldset>
-
-                <div class="control-group {% if form.text.errors %}has-error{% endif %}">
-                    <label class="control-label">{{ form.text.label }}</label>
-                    <div class="controls">{{ form.text }}</div>
+            {% for field in form %}
+                <div class="control-group {% if field.errors %}has-error{% endif %}">
+                    <label class="control-label">{{ field.label }}</label>
+                    <div class="controls">{{ field }}</div>
                 </div>
-                <div class="control-group {% if form.question.errors %}has-error{% endif %}">
-                    <label class="control-label">{{ form.question.label }}</label>
-                    <div class="controls">{{ form.question }}</div>
-                </div>
+            {% endfor %}
         </fieldset>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">

@@ -15,6 +15,9 @@ class AskForm(forms.Form):
     def clean_text(self):
         text = self.cleaned_data['text']
         return text
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        return title
 
     def save(self):
         """self.cleaned_data['author'] = self._user"""
