@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.decorators.http import require_GET
 from qa.models import Question, Answer
+from qa.forms import AskForm, AnswerForm
 from django.core.paginator import Paginator
-from typing import Any
 
 
-@require_GET
+
+
 def paginate(request, qs):
     global paginator
     global page
@@ -47,12 +48,40 @@ def popular_question_list(request):
         'page': page,
     })
 
-def question(request, pk):
+"""def question(request, pk):
     question = get_object_or_404(Question, id=pk)
     answers = question.answer_set.all()
     return render(request, 'question.html', {
         'question': question,
         'answers':   answers,
-    })
+    })"""
 
-# Create your views here.
+def question_add(request):
+    if request.method == "POST":
+        form = AskForm(request.POST)
+        if form.is_valid():
+            question = form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+    return render(request, 'askform.html', {
+        'form': form
+    })
+def answer_add(request, pk):
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save()
+            url = '/question/' + pk + '/'
+            return HttpResponseRedirect(url)
+    else:
+        question = get_object_or_404(Question, id=pk)
+        answers = question.answer_set.all()
+        form = AnswerForm()
+    return render(request, 'question.html', {
+        'pk': pk,
+        'question': question,
+        'answers': answers,
+        'form': form
+    })

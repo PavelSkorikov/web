@@ -2,14 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <title>question</title>
 </head>
 <body>
-
     <h1>{{ question.title }}</h1><br>
     <p>{{ question.text }}</p><br><br>
     {% for a in answers %}
         <p>{{ a.text }}</p><br><br>
     {% endfor %}
+    {% for e in form.non_field_errors %}
+        <div class="alert alert-danger">{{ e }}</div>
+    {% endfor %}
+    <form class="form-horisontal" method="post" action="/question/{{ pk }}/">
+        {% csrf_token %}
+        <fieldset>
+
+                <div class="control-group {% if form.text.errors %}has-error{% endif %}">
+                    <label class="control-label">{{ form.text.label }}</label>
+                    <div class="controls">{{ form.text }}</div>
+                </div>
+                <div class="control-group {% if form.question.errors %}has-error{% endif %}">
+                    <label class="control-label">{{ form.question.label }}</label>
+                    <div class="controls">{{ form.question }}</div>
+                </div>
+        </fieldset>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+            </button>
+        </div>
+    </form>
 </body>
 </html>
