@@ -70,17 +70,17 @@ def question_add(request):
     })
 def answer_add(request, pk):
     if request.method == 'POST':
+        q = request.POST.get('question')
         form = AnswerForm(request.POST)
         if form.is_valid():
             answer = form.save()
-            url = '/question/' + pk + '/'
+            url = '/question/' + q + '/'
             return HttpResponseRedirect(url)
     else:
         question = get_object_or_404(Question, id=pk)
         answers = question.answer_set.all()
         form = AnswerForm(initial={'question': question.id})
     return render(request, 'question.html', {
-        'pk': pk,
         'question': question,
         'answers': answers,
         'form': form

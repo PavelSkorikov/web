@@ -8,9 +8,8 @@ class AskForm(forms.Form):
     title = forms.CharField(max_length=100)
     text = forms.CharField(widget=forms.Textarea)
 
-    """def __init__(self, user, **kwargs):
-        self._user = user
-        super(AskForm, self).__init__(**kwargs)"""
+    def __init__(self, *args, **kwargs):
+        super(AskForm, self).__init__(*args, **kwargs)
 
     def clean_text(self):
         text = self.cleaned_data['text']
@@ -31,13 +30,15 @@ class AnswerForm(forms.ModelForm):
         model = Answer
         fields = ['text', 'question']
 
-    """def __init__(self, user, **kwargs):
-        self._user = user
-        super(AnswerForm, self).__init__(**kwargs)"""
+    def __init__(self, *args, **kwargs):
+        super(AnswerForm, self).__init__(*args, **kwargs)
 
     def clean_text(self):
         text = self.cleaned_data['text']
         return text
+    def clean_question(self):
+        question = self.cleaned_data['question']
+        return question
 
     def save(self):
         """self.cleaned_data['author'] = self._user"""
