@@ -68,10 +68,10 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-    def clean_username(self):
-        username = self.cleaned_data['username']
+    def __init__(self, **kwargs):
+        super(LoginForm, self).__init__(**kwargs)
+    def clean_login(self):
+        username= self.cleaned_data['username']
         return username
     def clean_password(self):
         password = self.cleaned_data['password']

@@ -93,20 +93,20 @@ def answer_add(request, pk):
 def login_view(request):
     error = ''
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    url = '/'
-                    return HttpResponseRedirect(url)
-                else:
-                    error = 'Аккаунт отключен'
+        #form = LoginForm(request.POST)
+        #if form.is_valid():
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                url = '/'
+                return HttpResponseRedirect(url)
             else:
-                error = 'Неверный логин / пароль'
+                error = 'Аккаунт отключен'
+        else:
+            error = 'Неверный логин / пароль'
     else:
         form = LoginForm()
     return render(request, 'loginform.html', {
