@@ -5,18 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <title>question</title>
+    <title>signupform</title>
 </head>
 <body>
-    <h1>{{ question.title }}</h1><br>
-    <p>{{ question.text }}</p><br><br>
-    {% for a in answers %}
-        <p>{{ a.text }}</p><br><br>
-    {% endfor %}
     {% for e in form.non_field_errors %}
         <div class="alert alert-danger">{{ e }}</div>
     {% endfor %}
-    <form class="form-horisontal" method="post" action="/question/{{ question.id }}/">
+    <form class="form-horisontal" method="post" action="/signup/">
         {% csrf_token %}
         <fieldset>
             {% for field in form %}
@@ -28,7 +23,7 @@
         </fieldset>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">
-                Сохранить
+                Регистрация
             </button>
         </div>
     </form>
