@@ -59,7 +59,7 @@ def popular_question_list(request):
         'answers':   answers,
     })"""
 
-@login_required
+#@login_required
 def question_add(request):
     if request.method == "POST":
         form = AskForm(request.user, request.POST)
@@ -72,7 +72,7 @@ def question_add(request):
     return render(request, 'askform.html', {
         'form': form,
     })
-@login_required
+#@login_required
 def answer_add(request, pk):
     if request.method == 'POST':
         q = request.POST.get('question')
